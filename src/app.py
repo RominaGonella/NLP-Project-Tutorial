@@ -1,12 +1,8 @@
 ## STEP 1 ##
 
-# librerás #
+# librerías #
 
 # ejecutar en consola: pip install -r requirements.txt
-
-# a pesar de ejecutar requirements, debo ejecutar esto para que funcione
-! pip install pandas
-! pip install sklearn
 
 # importo librerias
 import pandas as pd
@@ -25,7 +21,7 @@ import pickle
 df_raw = pd.read_csv('https://raw.githubusercontent.com/4GeeksAcademy/NLP-project-tutorial/main/url_spam.csv')
 
 # guardo datos iniciales
-df_raw.to_csv('../data/raw/datos_iniciales.csv', index = False)
+df_raw.to_csv('data/raw/datos_iniciales.csv', index = False)
 
 # hago copia para limpiar
 df = df_raw.copy()
@@ -88,7 +84,7 @@ df['url_clean'].values[:]
 df['url_clean'] = df['url_clean'].apply(url).apply(caracteres_no_alfanumericos)
 
 # guardo en csv para ver si encuentro más patrones a depurar
-df.to_csv('../data/interim/datos_limpieza_parcial.csv', index = False)
+df.to_csv('data/interim/datos_limpieza_parcial.csv', index = False)
 
 # elimino 'com' y 'org'
 df['url_clean'] = df['url_clean'].apply(elimino_com_org)
@@ -112,9 +108,11 @@ best_model = SVC(C = 10, kernel = 'rbf', gamma = 0.1)
 # se ajusta el clasificador con los datos de entrenamiento
 best_model.fit(X_train, y_train)
 
+## STEP 4 ##
+
 # guardo datos finales
-df.to_csv('../data/processed/datos_finales.csv', index = False)
+df.to_csv('data/processed/datos_finales.csv', index = False)
 
 # se guarda el modelo
-filename = '../models/nlp_model.sav'
+filename = 'models/nlp_model.sav'
 pickle.dump(best_model, open(filename,'wb'))
